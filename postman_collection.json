@@ -8,7 +8,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:4001",
+      "value": "https://api-de-gerenciamento-de-tarefas.vercel.app",
       "type": "string"
     },
     {
