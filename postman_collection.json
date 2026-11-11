@@ -1,0 +1,189 @@
+{
+  "info": {
+    "_postman_id": "a7b8c9d0-1234-4567-89ab-cdef01234567",
+    "name": "API de Gerenciamento de Tarefas - Express 01",
+    "description": "Coleção Postman para validação do CRUD de Tarefas (POST, GET, GET by ID, PUT, DELETE) e validações Zod.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4001",
+      "type": "string"
+    },
+    {
+      "key": "objectId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Criar Tarefa (POST /tarefas)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 201) {",
+              "    const jsonData = pm.response.json();",
+              "    if (jsonData.objectId) {",
+              "        pm.collectionVariables.set('objectId', jsonData.objectId);",
+              "    }",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descricao\": \"Estudar Express 5 e Zod\",\n  \"concluida\": false\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/tarefas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tarefas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "2. Listar Tarefas (GET /tarefas)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/tarefas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tarefas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "3. Buscar Tarefa por ID (GET /tarefas/:objectId)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/tarefas/{{objectId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tarefas",
+            "{{objectId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "4. Atualizar Tarefa (PUT /tarefas/:objectId)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descricao\": \"Estudar Express 5, Sequelize e Zod\",\n  \"concluida\": true\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/tarefas/{{objectId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tarefas",
+            "{{objectId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "5. Remover Tarefa (DELETE /tarefas/:objectId)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/tarefas/{{objectId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tarefas",
+            "{{objectId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "6. Validação Zod - Descrição Vazia (POST /tarefas - 400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descricao\": \"\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/tarefas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tarefas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "7. Validação Zod - UUID Inválido (GET /tarefas/123 - 400)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/tarefas/123",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "tarefas",
+            "123"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
+
